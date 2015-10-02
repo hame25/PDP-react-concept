@@ -1,5 +1,5 @@
 import React from 'react';
-import DeliveryOption from './delivery-option.js';
+import AdditionalDeliveryOptions from './additional-delivery-options.js';
 
 class DeliveryOptions extends React.Component {
 
@@ -9,14 +9,13 @@ class DeliveryOptions extends React.Component {
   }
 
   render () {
+    let firstOption = this.props.options.shift();
     let options = this.props.options;
+
     return (
       <div>
-        <ul>
-        {options.map((item, i) => 
-          <DeliveryOption key={i} option={item}/>
-        )}
-        </ul>
+        <p>{firstOption.name} {firstOption.price}</p>
+        {options.length > 0 ? <AdditionalDeliveryOptions options={options}/> : ''}
       </div>
     );
   }

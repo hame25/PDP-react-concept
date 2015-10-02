@@ -4,7 +4,7 @@ class DeliveryOption extends React.Component {
 
   constructor () {
     super();
-    this.displayName = 'BuyBoxDeliveryOption';
+    this.displayName = 'DeliveryOption';
   }
 
   render () {
