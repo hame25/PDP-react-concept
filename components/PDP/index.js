@@ -3,16 +3,17 @@ import fetch from 'isomorphic-fetch';
 import 'whatwg-fetch';
 import BuyBox from '../buy-box';
 import SellerList from '../seller-list';
+import AppStore from '../../stores/app-store';
 
 class PDP extends React.Component {
 
   constructor () {
     super();
     this.displayName = 'PDP';
-    this.state = {loading: true, product: {}};
+    this.state = {loading: false, product: AppStore.getAllData()};
   }
 
-  componentDidMount () {
+  /*componentDidMount () {
     let self = this;
     fetch('http://localhost:1991/product')
       .then(function(response) {
@@ -20,7 +21,7 @@ class PDP extends React.Component {
       }).then(function(product) {
         self.setState({product: product, loading: false});
     });
-  }
+  }*/
 
   render () {
 
