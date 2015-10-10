@@ -18248,6 +18248,10 @@
 
 	var _storesAppStore2 = _interopRequireDefault(_storesAppStore);
 
+	var _actionsAppActions = __webpack_require__(173);
+
+	var _actionsAppActions2 = _interopRequireDefault(_actionsAppActions);
+
 	var PDP = (function (_React$Component) {
 	  _inherits(PDP, _React$Component);
 
@@ -18256,22 +18260,26 @@
 
 	    _get(Object.getPrototypeOf(PDP.prototype), 'constructor', this).call(this);
 	    this.displayName = 'PDP';
-	    this.state = { loading: false, product: _storesAppStore2['default'].getAllData() };
+	    this.state = _storesAppStore2['default'].getAllData();
+	    _actionsAppActions2['default'].load();
 	  }
 
-	  //PDP.defaultProps = {data: {}};
-
-	  /*componentDidMount () {
-	    let self = this;
-	    fetch('http://localhost:1991/product')
-	      .then(function(response) {
-	        return response.json();
-	      }).then(function(product) {
-	        self.setState({product: product, loading: false});
-	    });
-	  }*/
-
 	  _createClass(PDP, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      _storesAppStore2['default'].addChangeListener(this._onChange.bind(this));
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      _storesAppStore2['default'].removeChangeListener(this._onChange);
+	    }
+	  }, {
+	    key: '_onChange',
+	    value: function _onChange() {
+	      this.setState(_storesAppStore2['default'].getAllData());
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 
@@ -19359,6 +19367,10 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	var _dispatcherAppDispatcher = __webpack_require__(167);
@@ -19369,52 +19381,57 @@
 
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
-	var EventEmitter = __webpack_require__(172).EventEmitter;
+	var _isomorphicFetch = __webpack_require__(158);
 
-	var appData = {
-	  id: 12345,
-	  name: 'Battlefield 4: Standard Edition (PS3)',
-	  image: {
-	    url: 'http://tesco.scene7.com/is/image/tesco/604-8904_PI_1000025MN?wid=170&hei=170&$Offers$'
+	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
+
+	var _events = __webpack_require__(172);
+
+	var CHANGE_EVENT = 'change';
+
+	var appData = { loading: true };
+
+	var AppStore = (0, _objectAssign2['default'])({}, _events.EventEmitter.prototype, {
+
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
 	  },
-	  qtyInBasket: 0,
-	  sellers: [{
-	    seller: {
-	      name: 'Tesco',
-	      logo: 'http://direct.tescoassets.com/directuiassets/Merchandising/NonSeasonal/en_GB/banners/sellerLogos/1000001_buybox_logo.jpg'
-	    },
-	    price: 114.00,
-	    clubcardPoints: 114,
-	    deliveryOptions: [{
-	      name: 'Free Click+Collect (next day*)',
-	      type: 'collect'
-	    }, {
-	      name: 'Standard delivery (2-5 days)',
-	      type: 'delivery',
-	      price: 'from £3.00'
-	    }]
-	  }, {
-	    seller: {
-	      name: 'External seller',
-	      logo: 'http://direct.tescoassets.com/directuiassets/Merchandising/NonSeasonal/en_GB/banners/sellerLogos/1000319_buybox_logo.jpg'
-	    },
-	    price: 154.00,
-	    clubcardPoints: 154
-	  }]
-	};
 
-	var AppStore = (0, _objectAssign2['default'])({}, EventEmitter.prototype, {
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
 
 	  getAllData: function getAllData() {
 	    return appData;
-	  }
+	  },
 
+	  loadData: function loadData() {
+	    (0, _isomorphicFetch2['default'])('http://localhost:1991/product').then(function (response) {
+	      return response.json();
+	    }).then(function (product) {
+	      appData.loading = false;
+	      appData.product = product;
+	      AppStore.emitChange();
+	    });
+	  }
 	});
 
-	// replace later
-	_dispatcherAppDispatcher2['default'].register(function () {});
+	_dispatcherAppDispatcher2['default'].register(function (payload) {
+	  var action = payload.action;
 
-	module.exports = AppStore;
+	  switch (action.actionType) {
+	    case 'LOAD_DATA':
+	      AppStore.loadData();
+	      break;
+	  }
+	});
+
+	exports['default'] = AppStore;
+	module.exports = exports['default'];
 
 /***/ },
 /* 167 */
@@ -19422,9 +19439,36 @@
 
 	'use strict';
 
-	var Dispatcher = __webpack_require__(168).Dispatcher;
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
 
-	module.exports = new Dispatcher();
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _flux = __webpack_require__(168);
+
+	var _objectAssign = __webpack_require__(171);
+
+	var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
+	var appDispatcher = (0, _objectAssign2['default'])(new _flux.Dispatcher(), {
+
+		handleServerAction: function handleServerAction(action) {
+			this.dispatch({
+				source: 'server',
+				action: action
+			});
+		},
+		handleViewAction: function handleViewAction(action) {
+			this.dispatch({
+				source: 'view',
+				action: action
+			});
+		}
+	});
+
+	exports['default'] = appDispatcher;
+	module.exports = exports['default'];
 
 /***/ },
 /* 168 */
@@ -20050,6 +20094,33 @@
 	function isUndefined(arg) {
 	  return arg === void 0;
 	}
+
+/***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _dispatcherAppDispatcher = __webpack_require__(167);
+
+	var _dispatcherAppDispatcher2 = _interopRequireDefault(_dispatcherAppDispatcher);
+
+	var appActions = {
+		load: function load() {
+			_dispatcherAppDispatcher2['default'].handleViewAction({
+				actionType: 'LOAD_DATA'
+			});
+		}
+	};
+
+	exports['default'] = appActions;
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);

@@ -4,24 +4,28 @@ import 'whatwg-fetch';
 import BuyBox from '../buy-box';
 import SellerList from '../seller-list';
 import AppStore from '../../stores/app-store';
+import AppActions from '../../actions/app-actions';
 
 class PDP extends React.Component {
 
   constructor () {
     super();
     this.displayName = 'PDP';
-    this.state = {loading: false, product: AppStore.getAllData()};
+    this.state = AppStore.getAllData();
+    AppActions.load();
   }
 
-  /*componentDidMount () {
-    let self = this;
-    fetch('http://localhost:1991/product')
-      .then(function(response) {
-        return response.json();
-      }).then(function(product) {
-        self.setState({product: product, loading: false});
-    });
-  }*/
+  componentDidMount () {
+    AppStore.addChangeListener(this._onChange.bind(this));
+  }
+
+  componentWillUnmount () {
+    AppStore.removeChangeListener(this._onChange);
+  }
+
+  _onChange () {
+    this.setState(AppStore.getAllData());
+  }
 
   render () {
 
@@ -46,7 +50,5 @@ class PDP extends React.Component {
     }
   }
 }
-
-//PDP.defaultProps = {data: {}};
 
 export default PDP;
