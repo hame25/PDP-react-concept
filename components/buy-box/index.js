@@ -1,9 +1,7 @@
 import React from 'react';
 import DeliveryOptions from './delivery-options.js';
-import StyleSheet from 'react-style';
 
-
-const styles = StyleSheet.create({
+const styles = {
     buyBoxText: {
       color: 'grey'
     },
@@ -11,7 +9,7 @@ const styles = StyleSheet.create({
     bold: {
       fontWeight: 'bold'
     }
-})
+};
 
 class BuyBox extends React.Component {
 

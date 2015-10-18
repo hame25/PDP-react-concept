@@ -1,10 +1,9 @@
 import React from 'react';
-import fetch from 'isomorphic-fetch';
-import 'whatwg-fetch';
 import BuyBox from '../buy-box';
 import SellerList from '../seller-list';
 import AppStore from '../../stores/app-store';
 import AppActions from '../../actions/app-actions';
+import '../../assets/styles/normalize.css';
 
 class PDP extends React.Component {
 

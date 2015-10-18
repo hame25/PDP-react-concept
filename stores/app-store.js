@@ -1,5 +1,6 @@
 import AppDispatcher from '../dispatcher/app-dispatcher';
 import assign from 'object-assign';
+import 'whatwg-fetch';
 import fetch from 'isomorphic-fetch';
 import {EventEmitter} from "events";
 
