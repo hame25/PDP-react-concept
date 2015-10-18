@@ -1,5 +1,6 @@
 import React from 'react';
 import BuyBox from '../buy-box';
+import './seller-list.css';
 
 class SellerList extends React.Component {
 
