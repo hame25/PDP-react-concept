@@ -8,6 +8,12 @@ const styles = {
 
     bold: {
       fontWeight: 'bold'
+    },
+
+    addButton: {
+      backgroundColor: '#00539F',
+      color: '#fff',
+      fontWeight: 'bold'
     }
 };
 
@@ -33,7 +39,7 @@ class BuyBox extends React.Component {
         </p>
         <form className="buy-box-add-form">
           <input type="text" name="quantity" defaultValue="1"/>
-          <button type="submit">Add to basket</button>
+          <button type="submit" style={styles.addButton}>Add to basket</button>
         </form>
         {this.props.item.deliveryOptions ? <DeliveryOptions options={this.props.item.deliveryOptions}/> : ''}
       </div>
