@@ -1,5 +1,6 @@
 import React from 'react';
 import DeliveryOptions from './delivery-options.js';
+import StylesConfig from '../../assets/styles/style-config.js';
 
 const styles = {
     buyBoxText: {

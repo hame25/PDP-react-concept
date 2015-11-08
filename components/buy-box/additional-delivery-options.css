@@ -1,0 +1,7 @@
+.additional-delivery-options .panel {
+	display: none;
+}
+
+.additional-delivery-options .panel.open {
+	display: block;
+}

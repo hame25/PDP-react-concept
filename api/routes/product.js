@@ -36,6 +36,14 @@ router.get('/', (req, res) => {
             },
             price: 154.00,
             clubcardPoints: 154
+          },
+          {
+            seller: { 
+              name:'Toys R Us',
+              logo: 'http://direct.tescoassets.com/directuiassets/Merchandising/NonSeasonal/en_GB/banners/sellerLogos/1000319_buybox_logo.jpg'
+            },
+            price: 124.00,
+            clubcardPoints: 124
           }
         ]
   });

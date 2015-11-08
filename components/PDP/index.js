@@ -4,6 +4,7 @@ import SellerList from '../seller-list';
 import AppStore from '../../stores/app-store';
 import AppActions from '../../actions/app-actions';
 import '../../assets/styles/normalize.css';
+import './pdp.css';
 
 class PDP extends React.Component {
 
@@ -39,11 +40,15 @@ class PDP extends React.Component {
       let defaultSeller = this.state.product.sellers[0];
       return (
         <div>
-          <h1>{this.state.product.name}</h1>
-          <div className="default-buy-box">
-            <BuyBox item={defaultSeller}/>
+          <div className="pdp-main-container">
+            <h1>{this.state.product.name}</h1>
           </div>
-          <SellerList sellers={this.state.product.sellers}/>
+          <div className="pdp-right-container">
+            <div className="default-buy-box">
+              <BuyBox item={defaultSeller}/>
+            </div>
+            <SellerList sellers={this.state.product.sellers}/>
+          </div>
         </div>
       );
     }
