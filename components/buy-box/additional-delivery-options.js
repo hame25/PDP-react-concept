@@ -12,8 +12,7 @@ class AdditionalDeliveryOptions extends React.Component {
   }
 
   showPanel () {
-    alert('clicked');
-    this.setState({showPanel: 'true'})
+    this.setState({showPanel: true})
   }
 
   render () {

@@ -39,7 +39,7 @@ class PDP extends React.Component {
 
       let defaultSeller = this.state.product.sellers[0];
       return (
-        <div>
+        <div className ="pdp-container">
           <div className="pdp-main-container">
             <h1>{this.state.product.name}</h1>
           </div>
