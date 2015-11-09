@@ -12,7 +12,7 @@ class SellerList extends React.Component {
 
   render () {
     let sellers = this.props.sellers;
-    sellers.shift();
+    //sellers.shift();
 
     return (
       <div className="seller-list">

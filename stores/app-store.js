@@ -6,7 +6,7 @@ import {EventEmitter} from "events";
 
 const CHANGE_EVENT = 'change';
 
-let appData = {loading: true};
+let appData = {loading: true, showPanel:false};
 
 let AppStore = assign({}, EventEmitter.prototype, {
 
@@ -35,6 +35,11 @@ let AppStore = assign({}, EventEmitter.prototype, {
       appData.product = product;
       AppStore.emitChange();
     });
+  },
+
+  togglePanel (state) {
+    appData.showPanel = state;
+    AppStore.emitChange();
   }
 });
 
@@ -43,8 +48,12 @@ AppDispatcher.register(function(payload) {
 
   switch(action.actionType) {
     case 'LOAD_DATA':
-    AppStore.loadData()
-    break;
+      AppStore.loadData()
+      break;
+
+    case 'TOGGLE_PANEL':
+      AppStore.togglePanel(action.panelState)
+      break;
   }
 
 });

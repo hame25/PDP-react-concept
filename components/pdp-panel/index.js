@@ -1,4 +1,5 @@
 import React from 'react';
+import './pdp-panel.css';
 
 class PdpPanel extends React.Component {
 
@@ -10,6 +11,7 @@ class PdpPanel extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
+    console.log(nextProps)
     this.setState({showPanel: nextProps.showPanel})
   }
 

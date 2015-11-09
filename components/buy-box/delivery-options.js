@@ -9,7 +9,9 @@ class DeliveryOptions extends React.Component {
   }
 
   render () {
-    let firstOption = this.props.options.shift();
+    //let firstOption = this.props.options.shift();
+    let firstOption = this.props.options[0];
+
     let options = this.props.options;
 
     return (

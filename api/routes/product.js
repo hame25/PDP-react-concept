@@ -35,7 +35,18 @@ router.get('/', (req, res) => {
               logo: 'http://direct.tescoassets.com/directuiassets/Merchandising/NonSeasonal/en_GB/banners/sellerLogos/1000319_buybox_logo.jpg'
             },
             price: 154.00,
-            clubcardPoints: 154
+            clubcardPoints: 154,
+            deliveryOptions: [
+              {
+                name: 'Free Click+Collect (next day) xyz',
+                type: 'collect'
+              },
+              {
+                name: 'Standard delivery (2-5 days) xyz',
+                type: 'delivery',
+                price: 'from £3.00'
+              }
+            ]
           },
           {
             seller: { 

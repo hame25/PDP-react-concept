@@ -1,5 +1,6 @@
 import React from 'react';
 import BuyBox from '../buy-box';
+import Panel from '../pdp-panel';
 import SellerList from '../seller-list';
 import AppStore from '../../stores/app-store';
 import AppActions from '../../actions/app-actions';
@@ -27,7 +28,20 @@ class PDP extends React.Component {
     this.setState(AppStore.getAllData());
   }
 
+  togglePanel () {
+    let state = true;
+    if(this.state.showPanel) {
+      state = false
+    }
+
+    AppActions.togglePanel(state);
+  }
+
   render () {
+    let text = 'hide';
+    if(this.state.showPanel) {
+      text = 'show';
+    }
 
     if(this.state.loading) {
       return (
@@ -49,6 +63,10 @@ class PDP extends React.Component {
             </div>
             <SellerList sellers={this.state.product.sellers}/>
           </div>
+          <a onClick={this.togglePanel.bind(this)}>Panel toggle</a>
+          <Panel showPanel={this.state.showPanel}>
+            {text}
+          </Panel>
         </div>
       );
     }
