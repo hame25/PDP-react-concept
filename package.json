@@ -4,7 +4,7 @@
   "description": "React PDP poc",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test.js"
   },
   "author": "Alex Hamer",
   "license": "ISC",
@@ -29,6 +29,7 @@
     "extract-text-webpack-plugin": "^0.8.2",
     "gulp": "^3.9.0",
     "gulp-util": "^3.0.6",
+    "jasmine": "^2.4.1",
     "style-loader": "^0.12.4",
     "webpack": "^1.12.2"
   }
